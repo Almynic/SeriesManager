@@ -1,5 +1,6 @@
 {"compile":[
 ["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/seriesManagerTest.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/seriesManagerTest.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/seriesManagerTest.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_strutils.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_strutils.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_strutils.c"],
 ],
 "link":[
 ],

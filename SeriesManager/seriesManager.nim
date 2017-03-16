@@ -28,7 +28,7 @@ proc isMovie(fileName: string): bool
 proc similarityCheckOnVariableLength()
 proc levensthein(fileName: string, serieFolder: string): int
 proc stripEverythingfromFileName(fileName: string): string
-proc deleteEverythingAfterEpisodePattern(fileName: string): string 
+proc stripEverythingAfterEpisodePattern(fileName: string): string 
 #[ 
     walks the entire working directory and adds all 
     files to the dataToBeProcessed array
@@ -59,7 +59,7 @@ proc move_data(fileOrDirectory : string, destDir : string) =
     @
 ]#
 proc getSeriesNameFromFile(fileName: string): string =
-    var fileNameStripEverything = deleteEverythingAfterEpisodePattern(stripEverythingfromFileName(fileName))
+    var fileNameStripEverything = stripEverythingAfterEpisodePattern(stripEverythingfromFileName(fileName))
     return fileNameStripEverything
 
 #[
@@ -70,7 +70,7 @@ proc stripFileEnding(fileName : string) : string =
     var stripFileEnding = replace(fileName, $ext, "")
     return stripFileEnding
 
-proc deleteEverythingAfterEpisodePattern(fileName: string): string = 
+proc stripEverythingAfterEpisodePattern(fileName: string): string = 
     var fileName : string = fileName
     if(fileName.contains(episodePattern1)):
         var splitted : seq[string] = fileName.split(episodePattern1)
@@ -111,7 +111,15 @@ proc isSeriesEpisode(fileName: string): bool =
         return false
 
 proc stripEverythingfromFileName(fileName : string): string =
-    return deleteEverythingAfterEpisodePattern(removeDots(removeVideoEncodingInformationFromFileName(stripFileEnding(removeYearSequence(fileName)))))
+    var strippedFileName : string = fileName
+    strippedFileName = removeYearSequence(strippedFileName)
+    strippedFileName = stripFileEnding(strippedFileName)
+    strippedFileName = removeVideoEncodingInformationFromFileName(strippedFileName)
+    strippedFileName = removeDots(strippedFileName)
+    strippedFileName = stripEverythingAfterEpisodePattern(strippedFileName)
+    var removedTrallingWhiteSpace = rsplit(strippedFileName, {' '}, maxSplit=1)
+    strippedFileName = removedTrallingWhiteSpace[0]
+    return strippedFileName
 
 proc isMovie(fileName: string): bool =
     var movieTitle = stripEverythingfromFileName(fileName)

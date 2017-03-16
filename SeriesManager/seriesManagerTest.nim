@@ -2,10 +2,6 @@ import unittest
 include seriesManager
 
 suite "test for seriesManager":
-    echo "starting tests: "
-
-    teardown:
-        echo "finished test"
 
     test "test removing fileending":
             var stripFileEnding = stripFileEnding("chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv") 

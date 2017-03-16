@@ -32,6 +32,7 @@ typedef struct AvlNode_IaqjtwKhxLEpvDS9bct9blEw AvlNode_IaqjtwKhxLEpvDS9bct9blEw
 typedef struct GcStat_0RwLoVBHZPfUAcLczmfQAg GcStat_0RwLoVBHZPfUAcLczmfQAg;
 typedef struct CellSet_jG87P0AI9aZtss9ccTYBIISQ CellSet_jG87P0AI9aZtss9ccTYBIISQ;
 typedef struct PageDesc_fublkgIY4LG3mT51LU2WHg PageDesc_fublkgIY4LG3mT51LU2WHg;
+typedef struct TY_sM4lkSb7zS6F7OVMvW9cffQ TY_sM4lkSb7zS6F7OVMvW9cffQ;
 typedef struct TY_qwqHTkRvwhrRyENtudHQ7g TY_qwqHTkRvwhrRyENtudHQ7g;
 typedef struct BaseChunk_Sdq7WpT6qAH858F5ZEdG3w BaseChunk_Sdq7WpT6qAH858F5ZEdG3w;
 typedef struct FreeCell_u6M5LHprqzkn9axr04yg9bGQ FreeCell_u6M5LHprqzkn9axr04yg9bGQ;
@@ -156,6 +157,7 @@ CellSet_jG87P0AI9aZtss9ccTYBIISQ marked;
 CellSeq_Axo1XVm9aaQueTOldv8le5w additionalRoots;
 };
 typedef NI TY_9cc9aPiDa8VaWjVcFLabEDZQ[256];
+typedef NU8 TY_nmiMWKVIe46vacnhAFrQvw_Set[32];
 struct  BaseChunk_Sdq7WpT6qAH858F5ZEdG3w  {
 NI prevSize;
 NI size;
@@ -196,6 +198,10 @@ TY_9a8QARi5WsUggNU9bom7kzTQ bits;
 struct  FreeCell_u6M5LHprqzkn9axr04yg9bGQ  {
 FreeCell_u6M5LHprqzkn9axr04yg9bGQ* next;
 NI zeroField;
+};
+struct TY_sM4lkSb7zS6F7OVMvW9cffQ {
+  TGenericSeq Sup;
+  NimStringDesc* data[SEQ_DECL_SIZE];
 };
 struct TY_qwqHTkRvwhrRyENtudHQ7g {
   TGenericSeq Sup;
@@ -250,13 +256,15 @@ N_NIMCALL(void, preprocessSub_IhQT0o4blhF4hbhCz0srsw)(NimStringDesc* sub, NI* a)
 N_NIMCALL(NI, findAux_xYftXprbikG4pTQVPGgIjg)(NimStringDesc* s, NimStringDesc* sub, NI start, NI last, TY_9cc9aPiDa8VaWjVcFLabEDZQ a);
 N_NIMCALL(NimStringDesc*, copyStr)(NimStringDesc* s, NI start);
 N_NIMCALL(NimStringDesc*, copyStr)(NimStringDesc* s, NI first);
+N_NIMCALL(void*, newSeq)(TNimType* typ, NI len);
+N_NIMCALL(TGenericSeq*, incrSeqV2)(TGenericSeq* seq, NI elemSize);
 N_NIMCALL(NI, nsuEditDistance)(NimStringDesc* a, NimStringDesc* b);
 static N_NIMCALL(void, Marker_TY_qwqHTkRvwhrRyENtudHQ7g)(void* p, NI op);
-N_NIMCALL(void*, newSeq)(TNimType* typ, NI len);
 extern TFrame* framePtr_HRfVMH3jYeBJz6Q6X9b6Ptw;
 extern TNimType NTI_yCEN9anxCD6mzBxGjuaRBdg_;
 extern TNimType NTI_Gi06FkNeykJn7mrqRZYrkA_;
 extern GcHeap_1TRH1TZMaVZTnLNcIHuNFQ gch_IcYaEuuWivYAS86vFMTS3Q;
+extern TNimType NTI_sM4lkSb7zS6F7OVMvW9cffQ_;
 extern TNimType NTI_rR5Bzr1D5krxoo1NcNyeMA_;
 TNimType NTI_qwqHTkRvwhrRyENtudHQ7g_;
 STRING_LITERAL(TM_JGc9b9bh2D3nTdUR7TGyq8aA_4, "invalid integer: ", 17);
@@ -1258,6 +1266,79 @@ appendString(result, by);
 	T8_ = copyStr(s, i);
 	result = resizeString(result, T8_->Sup.len + 0);
 appendString(result, T8_);
+	popFrame();
+	return result;
+}
+
+N_NIMCALL(TY_sM4lkSb7zS6F7OVMvW9cffQ*, nsuRSplitCharSet)(NimStringDesc* s, TY_nmiMWKVIe46vacnhAFrQvw_Set seps, NI maxsplit) {
+	TY_sM4lkSb7zS6F7OVMvW9cffQ* result;
+	nimfr_("rsplit", "strutils.nim")
+	result = (TY_sM4lkSb7zS6F7OVMvW9cffQ*)0;
+	result = (TY_sM4lkSb7zS6F7OVMvW9cffQ*) newSeq((&NTI_sM4lkSb7zS6F7OVMvW9cffQ_), 0);
+	{
+		NimStringDesc* x;
+		NI last;
+		NI first;
+		NI splits;
+		NI startPos;
+		x = (NimStringDesc*)0;
+		last = (NI)((s ? s->Sup.len : 0) - ((NI) 1));
+		first = last;
+		splits = maxsplit;
+		startPos = ((NI) 0);
+		{
+			if (!(((NI) 0) < (s ? s->Sup.len : 0))) goto LA4_;
+			{
+				while (1) {
+					NimStringDesc* T21_;
+					if (!(((NI) -1) <= first)) goto LA7;
+					{
+						while (1) {
+							NIM_BOOL T10_;
+							T10_ = (NIM_BOOL)0;
+							T10_ = (((NI) 0) <= first);
+							if (!(T10_)) goto LA11_;
+							T10_ = !(((seps[(NU)(((NU8)(s->data[first])))>>3] &(1U<<((NU)(((NU8)(s->data[first])))&7U)))!=0));
+							LA11_: ;
+							if (!T10_) goto LA9;
+							first -= ((NI) 1);
+						} LA9: ;
+					}
+					{
+						if (!(splits == ((NI) 0))) goto LA14_;
+						first = ((NI) -1);
+					}
+					LA14_: ;
+					{
+						if (!(first == ((NI) -1))) goto LA18_;
+						startPos = ((NI) 0);
+					}
+					goto LA16_;
+					LA18_: ;
+					{
+						startPos = (NI)(first + ((NI) 1));
+					}
+					LA16_: ;
+					x = copyStrLast(s, startPos, last);
+					result = (TY_sM4lkSb7zS6F7OVMvW9cffQ*) incrSeqV2(&(result)->Sup, sizeof(NimStringDesc*));
+					T21_ = (NimStringDesc*)0;
+					T21_ = result->data[result->Sup.len]; result->data[result->Sup.len] = copyStringRC1(x);
+					if (T21_) nimGCunrefNoCycle(T21_);
+					++result->Sup.len;
+					{
+						if (!(splits == ((NI) 0))) goto LA24_;
+						goto LA6;
+					}
+					LA24_: ;
+					splits -= ((NI) 1);
+					first -= ((NI) 1);
+					last = first;
+				} LA7: ;
+			} LA6: ;
+		}
+		LA4_: ;
+	}
+	reverse_LoixoqZetR6FfezoPedx8w(result->data, result->Sup.len);
 	popFrame();
 	return result;
 }
