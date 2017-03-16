@@ -1,0 +1,7 @@
+{"compile":[
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/seriesManager.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/seriesManager.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/seriesManager.c"],
+],
+"link":[
+],
+"linkcmd": "gcc   -o /home/almynic/Desktop/NimProjects/SeriesManager/seriesManager   -lm -lrt   -ldl"
+}

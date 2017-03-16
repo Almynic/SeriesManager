@@ -1,0 +1,6 @@
+{"compile":[
+],
+"link":[
+],
+"linkcmd": "gcc   -o /home/almynic/Desktop/NimProjects/SeriesManager/seriesManagerTest   -lm -lrt   -ldl"
+}
