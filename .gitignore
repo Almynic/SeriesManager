@@ -19,3 +19,7 @@
 # folder to ignore
 nimcache
 /nimcache
+seriesManager
+/seriesManager
+seriesManagerTest
+/seriesManagerTest
