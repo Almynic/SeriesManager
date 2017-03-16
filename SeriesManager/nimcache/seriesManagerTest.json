@@ -1,0 +1,23 @@
+{"compile":[
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/seriesManagerTest.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/seriesManagerTest.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/seriesManagerTest.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_system.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_system.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_system.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_unittest.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_unittest.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_unittest.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_macros.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_macros.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_macros.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_os.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_os.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_os.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_strutils.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_strutils.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_strutils.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_parseutils.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_parseutils.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_parseutils.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_math.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_math.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_math.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_algorithm.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_algorithm.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_algorithm.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_times.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_times.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_times.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_posix.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_posix.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_posix.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_ospaths.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_ospaths.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_ospaths.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_terminal.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_terminal.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_terminal.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_termios.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_termios.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_termios.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_re.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_re.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_re.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_pcre.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_pcre.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_pcre.c"],
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_rtarrays.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_rtarrays.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/stdlib_rtarrays.c"]
+],
+"link":[
+],
+"linkcmd": "gcc   -o /home/almynic/Desktop/NimProjects/SeriesManager/seriesManagerTest   -lm -lrt   -ldl"
+}
