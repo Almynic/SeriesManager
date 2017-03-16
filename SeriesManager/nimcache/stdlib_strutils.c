@@ -771,6 +771,64 @@ N_NIMCALL(NI, nsuCmpIgnoreCase)(NimStringDesc* a, NimStringDesc* b) {
 	return result;
 }
 
+N_NIMCALL(NIM_BOOL, nsuStartsWith)(NimStringDesc* s, NimStringDesc* prefix) {
+	NIM_BOOL result;
+	NI i;
+	nimfr_("startsWith", "strutils.nim")
+{	result = (NIM_BOOL)0;
+	i = ((NI) 0);
+	{
+		while (1) {
+			{
+				if (!((NU8)(prefix->data[i]) == (NU8)(0))) goto LA5_;
+				result = NIM_TRUE;
+				goto BeforeRet_;
+			}
+			LA5_: ;
+			{
+				if (!!(((NU8)(s->data[i]) == (NU8)(prefix->data[i])))) goto LA9_;
+				result = NIM_FALSE;
+				goto BeforeRet_;
+			}
+			LA9_: ;
+			i += ((NI) 1);
+		}
+	}
+	}BeforeRet_: ;
+	popFrame();
+	return result;
+}
+
+N_NIMCALL(NI, nsuFindChar)(NimStringDesc* s, NIM_CHAR sub, NI start, NI last) {
+	NI result;
+	NI last_2;
+	void* found;
+	nimfr_("find", "strutils.nim")
+{	result = (NI)0;
+	{
+		if (!(((NI) (last)) == ((NI) 0))) goto LA3_;
+		last_2 = (s ? (s->Sup.len-1) : -1);
+	}
+	goto LA1_;
+	LA3_: ;
+	{
+		last_2 = ((NI) (last));
+	}
+	LA1_: ;
+	found = memchr(((void*) ((&s->data[start]))), sub, (NI)((NI)(last_2 - ((NI) (start))) + ((NI) 1)));
+	{
+		if (!!((found == 0))) goto LA8_;
+		result = (NI)((NU64)(((NI) (found))) - (NU64)(((NI) (s->data))));
+		goto BeforeRet_;
+	}
+	LA8_: ;
+	result = ((NI) -1);
+	goto BeforeRet_;
+	}BeforeRet_: ;
+	popFrame();
+	return result;
+}
+
 static N_INLINE(void, nimGCunrefNoCycle)(void* p) {
 	Cell_1zcF9cV8XIAtbN8h5HRUB8g* c;
 	nimfr_("nimGCunrefNoCycle", "gc.nim")

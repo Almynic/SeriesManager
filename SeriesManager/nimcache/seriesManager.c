@@ -296,7 +296,7 @@ N_NIMCALL(void, nosmoveFile)(NimStringDesc* source, NimStringDesc* dest);
 N_NIMCALL(NimStringDesc*, getSeriesNameFromFile_Yt9cWKv49axGWv9cwAXa64wew)(NimStringDesc* fileName);
 N_NIMCALL(NimStringDesc*, stripFileEnding_yAME5eiCXTWumJo4Fxeg8Q_2)(NimStringDesc* fileName);
 N_NIMCALL(void, nossplitFile)(NimStringDesc* path, TY_7q7q3E6Oj24ZNVJb9aonhAg* Result);
-N_NIMCALL(NimStringDesc*, deleteEverythingAfterEpisodePattern_Yt9cWKv49axGWv9cwAXa64wew_3)(NimStringDesc* fileName);
+N_NIMCALL(NimStringDesc*, deleteEverythingAfterEpisodePattern_Yt9cWKv49axGWv9cwAXa64wew_2)(NimStringDesc* fileName);
 static N_INLINE(NIM_BOOL, contains_y7rJUCS8uxf8NYoExwh5sA_2re)(NimStringDesc* s, RegexDesc_jxMAPyr9aBYX9b0g7iZ2E8zw* pattern, NI start);
 static N_INLINE(NI, find_Qgadm9adOmbpTJaQImyB4SQ_2re)(NimStringDesc* s, RegexDesc_jxMAPyr9aBYX9b0g7iZ2E8zw* pattern, NI start);
 N_NIMCALL(NI, find_gO27BvVdKY9cNNmXqtaKGdQ)(NCSTRING buf, RegexDesc_jxMAPyr9aBYX9b0g7iZ2E8zw* pattern, NI start, NI bufSize);
@@ -315,7 +315,7 @@ N_NIMCALL(NimStringDesc*, removeYearSequence_wurmAF3YsTQS52r0ooQM0A)(NimStringDe
 N_NIMCALL(NimStringDesc*, replace_XTFad3adT9ckW2xJiSYMhMw)(NimStringDesc* s, RegexDesc_jxMAPyr9aBYX9b0g7iZ2E8zw* sub, NimStringDesc* by);
 N_NIMCALL(NimStringDesc*, removeVideoEncodingInformationFromFileName_wurmAF3YsTQS52r0ooQM0A_2)(NimStringDesc* fileName);
 N_NIMCALL(NIM_BOOL, isSeriesEpisode_6t9aU2kB4FzgoQqgCkhImpQ)(NimStringDesc* fileName);
-N_NIMCALL(NimStringDesc*, stripEverythingfromFileName_Yt9cWKv49axGWv9cwAXa64wew_2)(NimStringDesc* fileName);
+N_NIMCALL(NimStringDesc*, stripEverythingfromFileName_Yt9cWKv49axGWv9cwAXa64wew_3)(NimStringDesc* fileName);
 N_NIMCALL(NIM_BOOL, isMovie_YcYvVRYugMmk6vNOnvG04g)(NimStringDesc* fileName);
 N_NIMCALL(void, similarityCheckOnVariableLength_y2YHU9aZPhSGftI5Xw7jTEg)(void);
 N_NIMCALL(NI, levensthein_y0rRchiR9aZQHKzZJeP8CFQ)(NimStringDesc* fileName, NimStringDesc* serieFolder);
@@ -323,6 +323,7 @@ N_NIMCALL(NI, nsuEditDistance)(NimStringDesc* a, NimStringDesc* b);
 static N_INLINE(NIM_BOOL, contains_jPdUhZfr9a8sH2V3ZBDljzwseriesManager)(NimStringDesc** a, NI aLen_0, NimStringDesc* item);
 static N_INLINE(NI, find_9basNl9bVqn7SOf9bgUeI8TEQseriesManager)(NimStringDesc** a, NI aLen_0, NimStringDesc* item);
 N_NIMCALL(NIM_BOOL, doesSeriesFolderExist_q4WqvETqd5h7W7fOAf9bFpA)(NimStringDesc* workingDirectory, NimStringDesc* fileName);
+N_NIMCALL(NimStringDesc*, nimBoolToStr)(NIM_BOOL x);
 static N_INLINE(void, initStackBottomWith)(void* locals);
 N_NOINLINE(void, setStackBottom)(void* theStackBottom);
 NIM_EXTERNC N_NOINLINE(void, systemInit000)(void);
@@ -405,9 +406,8 @@ STRING_LITERAL(TM_J0OujsCJVF855gnHg567Eg_31, ".", 1);
 STRING_LITERAL(TM_J0OujsCJVF855gnHg567Eg_32, " ", 1);
 STRING_LITERAL(TM_J0OujsCJVF855gnHg567Eg_34, "..", 2);
 STRING_LITERAL(TM_J0OujsCJVF855gnHg567Eg_36, "len(a) == L seq modified while iterating over it", 48);
-STRING_LITERAL(TM_J0OujsCJVF855gnHg567Eg_44, "get name: ", 10);
-STRING_LITERAL(TM_J0OujsCJVF855gnHg567Eg_45, "chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv", 47);
-STRING_LITERAL(TM_J0OujsCJVF855gnHg567Eg_46, "split name: ", 12);
+STRING_LITERAL(TM_J0OujsCJVF855gnHg567Eg_44, "chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv", 47);
+STRING_LITERAL(TM_J0OujsCJVF855gnHg567Eg_45, "chicago justice", 15);
 static N_NIMCALL(void, TM_J0OujsCJVF855gnHg567Eg_2)(void) {
 	nimGCvisit((void*)dataToBeProecessed_aGKSlMaoiyeQEXicsP8HXw, 0);
 }
@@ -868,10 +868,13 @@ N_NIMCALL(void, move_data_RuqyGIgEE9cw30IzHQ1oRaQ)(NimStringDesc* fileOrDirector
 N_NIMCALL(NimStringDesc*, getSeriesNameFromFile_Yt9cWKv49axGWv9cwAXa64wew)(NimStringDesc* fileName) {
 	NimStringDesc* result;
 	NimStringDesc* fileNameStripEverything;
+	NimStringDesc* T1_;
 	nimfr_("getSeriesNameFromFile", "seriesManager.nim")
 {	result = (NimStringDesc*)0;
 	nimln_(62, "seriesManager.nim");
-	fileNameStripEverything = stripEverythingfromFileName_Yt9cWKv49axGWv9cwAXa64wew_2(fileName);
+	T1_ = (NimStringDesc*)0;
+	T1_ = stripEverythingfromFileName_Yt9cWKv49axGWv9cwAXa64wew_3(fileName);
+	fileNameStripEverything = deleteEverythingAfterEpisodePattern_Yt9cWKv49axGWv9cwAXa64wew_2(T1_);
 	nimln_(63, "seriesManager.nim");
 	result = copyString(fileNameStripEverything);
 	goto BeforeRet_;
@@ -1071,7 +1074,7 @@ static N_INLINE(TY_sM4lkSb7zS6F7OVMvW9cffQ*, split_Z7ZBo8kHSBAfoa09amRR7igre)(Ni
 	return result;
 }
 
-N_NIMCALL(NimStringDesc*, deleteEverythingAfterEpisodePattern_Yt9cWKv49axGWv9cwAXa64wew_3)(NimStringDesc* fileName) {
+N_NIMCALL(NimStringDesc*, deleteEverythingAfterEpisodePattern_Yt9cWKv49axGWv9cwAXa64wew_2)(NimStringDesc* fileName) {
 	NimStringDesc* result;
 	NimStringDesc* fileName_2;
 	nimfr_("deleteEverythingAfterEpisodePattern", "seriesManager.nim")
@@ -1090,12 +1093,9 @@ N_NIMCALL(NimStringDesc*, deleteEverythingAfterEpisodePattern_Yt9cWKv49axGWv9cwA
 		nimln_(77, "seriesManager.nim");
 		if ((NU)(((NI) 0)) >= (NU)(splitted->Sup.len)) raiseIndexError();
 		fileName_2 = copyString(splitted->data[((NI) 0)]);
-		nimln_(78, "seriesManager.nim");
-		printf("%s\012", fileName_2? (fileName_2)->data:"nil");
-		fflush(stdout);
 	}
 	LA4_: ;
-	nimln_(79, "seriesManager.nim");
+	nimln_(78, "seriesManager.nim");
 	result = copyString(fileName_2);
 	goto BeforeRet_;
 	}BeforeRet_: ;
@@ -1105,7 +1105,7 @@ N_NIMCALL(NimStringDesc*, deleteEverythingAfterEpisodePattern_Yt9cWKv49axGWv9cwA
 
 N_NIMCALL(void, movingFoldersToSeriesFolders_hRVxzheqtPypyf09cCOcHOg)(NimStringDesc* folderName, NimStringDesc* destFolder) {
 	nimfr_("movingFoldersToSeriesFolders", "seriesManager.nim")
-	nimln_(82, "seriesManager.nim");
+	nimln_(81, "seriesManager.nim");
 	printf("%s\012", ((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_20)? (((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_20))->data:"nil");
 	fflush(stdout);
 	popFrame();
@@ -1113,7 +1113,7 @@ N_NIMCALL(void, movingFoldersToSeriesFolders_hRVxzheqtPypyf09cCOcHOg)(NimStringD
 
 N_NIMCALL(void, movingFilesToSeriesFolders_dRPWxy9a59cccP9c9cAYHo7ypA)(NimStringDesc* fileName, NimStringDesc* destFolder) {
 	nimfr_("movingFilesToSeriesFolders", "seriesManager.nim")
-	nimln_(84, "seriesManager.nim");
+	nimln_(83, "seriesManager.nim");
 	printf("%s\012", ((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_20)? (((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_20))->data:"nil");
 	fflush(stdout);
 	popFrame();
@@ -1126,12 +1126,12 @@ N_NIMCALL(NimStringDesc*, removeYearSequence_wurmAF3YsTQS52r0ooQM0A)(NimStringDe
 	nimln_(86, "seriesManager.nim");
 	{
 		NIM_BOOL T3_;
-		NimStringDesc* fileName_2;
 		T3_ = (NIM_BOOL)0;
 		T3_ = contains_y7rJUCS8uxf8NYoExwh5sA_2re(fileName, yearPattern_h2XZ0aCURHWP8N30Rxb5YQ, ((NI) 0));
 		if (!T3_) goto LA4_;
 		nimln_(87, "seriesManager.nim");
-		fileName_2 = replace_XTFad3adT9ckW2xJiSYMhMw(fileName, yearPattern_h2XZ0aCURHWP8N30Rxb5YQ, ((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_20));
+		result = replace_XTFad3adT9ckW2xJiSYMhMw(fileName, yearPattern_h2XZ0aCURHWP8N30Rxb5YQ, ((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_32));
+		goto BeforeRet_;
 	}
 	LA4_: ;
 	nimln_(88, "seriesManager.nim");
@@ -1266,21 +1266,24 @@ N_NIMCALL(NIM_BOOL, isSeriesEpisode_6t9aU2kB4FzgoQqgCkhImpQ)(NimStringDesc* file
 	return result;
 }
 
-N_NIMCALL(NimStringDesc*, stripEverythingfromFileName_Yt9cWKv49axGWv9cwAXa64wew_2)(NimStringDesc* fileName) {
+N_NIMCALL(NimStringDesc*, stripEverythingfromFileName_Yt9cWKv49axGWv9cwAXa64wew_3)(NimStringDesc* fileName) {
 	NimStringDesc* result;
 	NimStringDesc* T1_;
 	NimStringDesc* T2_;
 	NimStringDesc* T3_;
+	NimStringDesc* T4_;
 	nimfr_("stripEverythingfromFileName", "seriesManager.nim")
 {	result = (NimStringDesc*)0;
 	nimln_(114, "seriesManager.nim");
 	T1_ = (NimStringDesc*)0;
-	T1_ = stripFileEnding_yAME5eiCXTWumJo4Fxeg8Q_2(fileName);
+	T1_ = removeYearSequence_wurmAF3YsTQS52r0ooQM0A(fileName);
 	T2_ = (NimStringDesc*)0;
-	T2_ = removeVideoEncodingInformationFromFileName_wurmAF3YsTQS52r0ooQM0A_2(T1_);
+	T2_ = stripFileEnding_yAME5eiCXTWumJo4Fxeg8Q_2(T1_);
 	T3_ = (NimStringDesc*)0;
-	T3_ = removeYearSequence_wurmAF3YsTQS52r0ooQM0A(T2_);
-	result = removeDots_yAME5eiCXTWumJo4Fxeg8Q(T3_);
+	T3_ = removeVideoEncodingInformationFromFileName_wurmAF3YsTQS52r0ooQM0A_2(T2_);
+	T4_ = (NimStringDesc*)0;
+	T4_ = removeDots_yAME5eiCXTWumJo4Fxeg8Q(T3_);
+	result = deleteEverythingAfterEpisodePattern_Yt9cWKv49axGWv9cwAXa64wew_2(T4_);
 	goto BeforeRet_;
 	}BeforeRet_: ;
 	popFrame();
@@ -1293,7 +1296,7 @@ N_NIMCALL(NIM_BOOL, isMovie_YcYvVRYugMmk6vNOnvG04g)(NimStringDesc* fileName) {
 	nimfr_("isMovie", "seriesManager.nim")
 {	result = (NIM_BOOL)0;
 	nimln_(117, "seriesManager.nim");
-	movieTitle = stripEverythingfromFileName_Yt9cWKv49axGWv9cwAXa64wew_2(fileName);
+	movieTitle = stripEverythingfromFileName_Yt9cWKv49axGWv9cwAXa64wew_3(fileName);
 	nimln_(118, "seriesManager.nim");
 	{
 		NIM_BOOL T3_;
@@ -1514,13 +1517,10 @@ nimRegisterGlobalMarker(TM_J0OujsCJVF855gnHg567Eg_29);
 	asgnRefNoCycle((void**) (&yearPattern_h2XZ0aCURHWP8N30Rxb5YQ), re_2TnOqvPvxix6tRYnuIeq9bw(((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_30), 24));
 	nimln_(134, "seriesManager.nim");
 	T1_ = (NimStringDesc*)0;
-	T1_ = getSeriesNameFromFile_Yt9cWKv49axGWv9cwAXa64wew(((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_45));
-	printf("%s%s\012", ((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_44)? (((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_44))->data:"nil", T1_? (T1_)->data:"nil");
-	fflush(stdout);
-	nimln_(135, "seriesManager.nim");
+	T1_ = getSeriesNameFromFile_Yt9cWKv49axGWv9cwAXa64wew(((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_44));
 	T2_ = (NimStringDesc*)0;
-	T2_ = deleteEverythingAfterEpisodePattern_Yt9cWKv49axGWv9cwAXa64wew_3(((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_45));
-	printf("%s%s\012", ((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_46)? (((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_46))->data:"nil", T2_? (T2_)->data:"nil");
+	T2_ = nimBoolToStr(eqStrings(T1_, ((NimStringDesc*) &TM_J0OujsCJVF855gnHg567Eg_45)));
+	printf("%s\012", T2_? (T2_)->data:"nil");
 	fflush(stdout);
 	popFrame();
 }

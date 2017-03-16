@@ -28,7 +28,7 @@ proc isMovie(fileName: string): bool
 proc similarityCheckOnVariableLength()
 proc levensthein(fileName: string, serieFolder: string): int
 proc stripEverythingfromFileName(fileName: string): string
-
+proc deleteEverythingAfterEpisodePattern(fileName: string): string 
 #[ 
     walks the entire working directory and adds all 
     files to the dataToBeProcessed array
@@ -59,7 +59,7 @@ proc move_data(fileOrDirectory : string, destDir : string) =
     @
 ]#
 proc getSeriesNameFromFile(fileName: string): string =
-    var fileNameStripEverything = stripEverythingfromFileName(fileName)
+    var fileNameStripEverything = deleteEverythingAfterEpisodePattern(stripEverythingfromFileName(fileName))
     return fileNameStripEverything
 
 #[
@@ -75,16 +75,16 @@ proc deleteEverythingAfterEpisodePattern(fileName: string): string =
     if(fileName.contains(episodePattern1)):
         var splitted : seq[string] = fileName.split(episodePattern1)
         fileName = splitted[0]
-        echo fileName
     return fileName
 
 proc movingFoldersToSeriesFolders(folderName : string, destFolder : string) =
     echo ""
 proc movingFilesToSeriesFolders(fileName : string, destFolder : string) =
     echo ""
-proc removeYearSequence(fileName : string):string =
+
+proc removeYearSequence(fileName : string): string =
     if(fileName.contains(yearPattern)):
-        var fileName =  replace(fileName, yearPattern, "")
+        return replace(fileName, yearPattern, " ")
     return fileName
     
 proc removeVideoEncodingInformationFromFileName(fileName : string): string =
@@ -111,7 +111,7 @@ proc isSeriesEpisode(fileName: string): bool =
         return false
 
 proc stripEverythingfromFileName(fileName : string): string =
-    return removeDots(removeYearSequence(removeVideoEncodingInformationFromFileName(stripFileEnding(fileName))))
+    return deleteEverythingAfterEpisodePattern(removeDots(removeVideoEncodingInformationFromFileName(stripFileEnding(removeYearSequence(fileName)))))
 
 proc isMovie(fileName: string): bool =
     var movieTitle = stripEverythingfromFileName(fileName)
@@ -130,3 +130,4 @@ proc levensthein(fileName: string, serieFolder: string): int =
 proc doesSeriesFolderExist(workingDirectory:string ,fileName: string): bool = 
     if(dataToBeProecessed.contains(getSeriesNameFromFile(fileName))):
         return true
+  

@@ -23,9 +23,8 @@ suite "test for seriesManager":
         check:
             isMovie("The.Wolverine.2013.1080p.Bluray.x264.YIFY.mp4") == true  
 
-    
     test "test get seriesName from file":
-        checkpoint("chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv should result in series name chicago justice")
+        checkpoint("series name from 'chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv' should be 'chicago justice'")
         check:
             getSeriesNameFromFile("chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv") == "chicago justice"
     

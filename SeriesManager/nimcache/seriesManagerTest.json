@@ -1,4 +1,5 @@
 {"compile":[
+["/home/almynic/Desktop/NimProjects/SeriesManager/nimcache/seriesManagerTest.c", "gcc -c  -w  -I/home/almynic/Nim/lib -o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/seriesManagerTest.o /home/almynic/Desktop/NimProjects/SeriesManager/nimcache/seriesManagerTest.c"],
 ],
 "link":[
 ],
