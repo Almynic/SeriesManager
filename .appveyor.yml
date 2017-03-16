@@ -29,7 +29,7 @@ install:
 
 build_script:
   - nimble.exe install SeriesManager/seriesManager -y
-  - nim.exe c -p:. .SeriesManager/tests/seriesManagerTest.nim
+  - nim.exe c -p:. .SeriesManager/seriesManagerTest.nim
 
 test_script:
   - .SeriesManager/tests/seriesManagerTest
