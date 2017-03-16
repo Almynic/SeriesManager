@@ -92,7 +92,7 @@ proc removeVideoEncodingInformationFromFileName(fileName : string): string =
     for encoding in videoEncodingFormat:
         if(fileName.contains(re(encoding))):
             fileNameWithoutEncoding = replace(fileNameWithoutEncoding, re(encoding), "")
-    return fileNameWithoutEncoding
+            return fileNameWithoutEncoding
 
 proc isSeriesEpisode(fileName: string): bool =
     if (fileName.contains(episodePattern1)):
