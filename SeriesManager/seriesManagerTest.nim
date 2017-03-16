@@ -40,4 +40,5 @@ suite "test for seriesManager":
             levensthein("", "") == 0
         check:
             levensthein("", "") != 1
+    
 echo "finished"

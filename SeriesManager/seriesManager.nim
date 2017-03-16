@@ -138,4 +138,3 @@ proc levensthein(fileName: string, serieFolder: string): int =
 proc doesSeriesFolderExist(workingDirectory:string ,fileName: string): bool = 
     if(dataToBeProecessed.contains(getSeriesNameFromFile(fileName))):
         return true
-  
