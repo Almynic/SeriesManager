@@ -17,4 +17,4 @@
 *.dylib
 
 # folder to ignore
-/nimcache
+nimcache
