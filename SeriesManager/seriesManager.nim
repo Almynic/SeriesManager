@@ -16,7 +16,7 @@ let episodePattern4 = re"\d\dx\d\d" #episode format 60x13
 let yearPattern = re"\d\d\d\d" #year format {2012 , 1993 and so on}
 
 # Declaring function so that order of implementation doesn't matter
-proc processDirectory(workingDirectory: string) {.tags: [ReadDirEffect].}
+proc processDirectory(workingDirectory: string) {.tags: [ReadDirEffect, RootEffect].}
 proc getSeriesNameFromFile(fileName: string): string
 proc move_data(fileOrDirectory : string, destDir : string) {.tags: [WriteIOEffect, ReadIOEffect].}
 proc movingFoldersToSeriesFolders(folderName : string, destFolder : string) {.tags: [ReadDirEffect, WriteDirEffect].}
