@@ -25,7 +25,7 @@ proc stripFileEnding(fileName: string): string
 proc removeVideoEncodingInformationFromFileName(fileName: string): string
 proc isSeriesEpisode(fileName: string): bool
 proc isMovie(fileName: string): bool
-proc similarityCheckOnVariableLength()
+proc similarityCheckOnVariableLength(fileOrFolderName: string): bool
 proc levensthein(fileName: string, serieFolder: string): int
 proc stripEverythingfromFileName(fileName: string): string
 proc stripEverythingAfterEpisodePattern(fileName: string): string 
@@ -140,7 +140,7 @@ proc isMovie(fileName: string): bool =
     else: 
         return false
 
-proc similarityCheckOnVariableLength(fileOrFolderName: string) =
+proc similarityCheckOnVariableLength(fileOrFolderName: string): bool =
     echo ""
 
 #[
