@@ -16,8 +16,9 @@ suite "test for seriesManager":
         checkpoint("series episode chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv should be detected as serie episode")
         check:
             isSeriesEpisode("chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv") == true
+        checkpoint("The.Wolverine.2013.1080p.Bluray.x264.YIFY.mp4 should be detected as movie")
         check:
-            isMovie("The.Wolverine.2013.1080p.Bluray.x264.YIFY.mp4") == true  
+            isMovie("The.Wolverine.2013.1080p.Bluray.x264.YIFY.mp4") == true
 
     test "test get seriesName from file":
         checkpoint("series name from 'chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv' should be 'chicago justice'")
@@ -36,8 +37,10 @@ suite "test for seriesManager":
         checkpoint("test that string 'chicago justice' und 'chicago' has distance 8")
         check:
             levensthein("chicago justice", "chicago") == 8
+        checkpoint("test that equal strings have distance 0")
         check:
             levensthein("", "") == 0
+        checkpoint("test that equal strings have distance 0")
         check:
             levensthein("", "") != 1
     

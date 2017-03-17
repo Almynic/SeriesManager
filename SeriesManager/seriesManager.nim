@@ -16,11 +16,11 @@ let episodePattern4 = re"\d\dx\d\d" #episode format 60x13
 let yearPattern = re"\d\d\d\d" #year format {2012 , 1993 and so on}
 
 # Declaring function so that order of implementation doesn't matter
-proc processDirectory(workingDirectory: string)
+proc processDirectory(workingDirectory: string) {.tags: [ReadDirEffect].}
 proc getSeriesNameFromFile(fileName: string): string
-proc move_data(fileOrDirectory : string, destDir : string)
-proc movingFoldersToSeriesFolders(folderName : string, destFolder : string)
-proc movingFilesToSeriesFolders(fileName : string, destFolder : string)
+proc move_data(fileOrDirectory : string, destDir : string) {.tags: [WriteIOEffect, ReadIOEffect].}
+proc movingFoldersToSeriesFolders(folderName : string, destFolder : string) {.tags: [ReadDirEffect, WriteDirEffect].}
+proc movingFilesToSeriesFolders(fileName : string, destFolder : string) {.tags: [ReadDirEffect, WriteDirEffect, WriteIOEffect, ReadIOEffect].}
 proc stripFileEnding(fileName: string): string
 proc removeVideoEncodingInformationFromFileName(fileName: string): string
 proc isSeriesEpisode(fileName: string): bool
@@ -94,22 +94,29 @@ proc removeVideoEncodingInformationFromFileName(fileName : string): string =
             fileNameWithoutEncoding = replace(fileNameWithoutEncoding, re(encoding), "")
     return fileNameWithoutEncoding
 
+#[
+    tests if the fileName matches a series episode pattern
+    @param fileName, the name of the file
+    @return true if a episode pattern was matched
+]#
 proc isSeriesEpisode(fileName: string): bool =
     if (fileName.contains(episodePattern1)):
-        #echo "match pattern 1: s01e01"
         return true
     elif (fileName.contains(episodePattern2)):
-        #echo "match pattern 2: season 1 epsiode 1"
         return true
     elif (fileName.contains(episodePattern3)):
-        #echo "match pattern 3: 604"
         return true
     elif (fileName.contains(episodePattern4)):
-        #echo "match pattern 4: 60x13"
         return true
     else:
         return false
 
+#[
+    strips everything from fileName, works on a copy of the file name doesn't actual
+    change the fileName on the harddisk!!
+    @param filename, the file name
+    @returns strippedFileName, the serie or movie name without unnessary information
+]#
 proc stripEverythingfromFileName(fileName : string): string =
     var strippedFileName : string = fileName
     strippedFileName = removeYearSequence(strippedFileName)
@@ -121,6 +128,11 @@ proc stripEverythingfromFileName(fileName : string): string =
     strippedFileName = removedTrallingWhiteSpace[0]
     return strippedFileName
 
+#[
+    if the fileName isn't a series episode it's matched as a movie
+    @param fileName
+    @returns true or false
+]#
 proc isMovie(fileName: string): bool =
     var movieTitle = stripEverythingfromFileName(fileName)
     if (not isSeriesEpisode(movieTitle)):
@@ -128,9 +140,15 @@ proc isMovie(fileName: string): bool =
     else: 
         return false
 
-proc similarityCheckOnVariableLength() =
-    echo ""
+proc similarityCheckOnVariableLength(fileOrFolderName: string, 
+) =
+    
 
+#[
+    calculates the levensthein distance from fileName and serieFolder
+    @param fileName, the fileName 
+    @param serieFolder, a serie folder
+]#
 proc levensthein(fileName: string, serieFolder: string): int =
     var levenshteinDistance = editDistance(fileName, serieFolder)
     return levenshteinDistance

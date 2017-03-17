@@ -39,7 +39,7 @@ install:
 before_script:
     - export PATH="nim-$BRANCH/bin${PATH:+:$PATH}"
 script:
-    # Replace uppercase strings!
+    # Run tests!
     - nim c --cc:$CC --verbosity:0 -r SeriesManager/seriesManagerTest.nim
     # Optional: build docs.
     # nim doc --docSeeSrcUrl:https://github.com/AUTHOR/MYPROJECT/blob/master --project SeriesManager/seriesManager.nim
