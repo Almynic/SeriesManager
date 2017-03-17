@@ -28,15 +28,21 @@ proc levensthein(fileName: string, serieFolder: string): int
 proc stripEverythingfromFileName(fileName: string): string
 proc stripEverythingAfterEpisodePattern(fileName: string): string 
 #[ 
-    walks the entire working directory and adds all 
-    files to the dataToBeProcessed array
-    @param workingDirectory, the directory in which the seriesManager should do a cleanup
-    @return nothing
+    removes dots in the fileName
+    @param fileName, file name
+    @returns fileNameWithoutDots, the fileName striped of dots
 ]#
 
 proc removeDots(fileName: string): string = 
     var fileNameWithoutDots = strutils.replace(fileName, ".", " ")
     return fileNameWithoutDots 
+
+#[ 
+    walks the entire working directory and adds all 
+    files to the dataToBeProcessed array
+    @param workingDirectory, the directory in which the seriesManager should do a cleanup
+    @return nothing
+]#
 
 proc processDirectory(workingDirectory: string) =
     for kind, path in walkDir(workingDirectory):
@@ -68,6 +74,9 @@ proc stripFileEnding(fileName : string) : string =
     var stripFileEnding = replace(fileName, $ext, "")
     return stripFileEnding
 
+#[
+
+]#
 proc stripEverythingAfterEpisodePattern(fileName: string): string = 
     var fileName : string = fileName
     if(fileName.contains(episodePattern1)):
@@ -84,7 +93,10 @@ proc removeYearSequence(fileName : string): string =
     if(fileName.contains(yearPattern)):
         return replace(fileName, yearPattern, " ")
     return fileName
-    
+
+#[
+
+]#
 proc removeVideoEncodingInformationFromFileName(fileName : string): string =
     var fileNameWithoutEncoding : string = fileName
     for encoding in videoEncodingFormat:
@@ -148,6 +160,11 @@ proc levensthein(fileName: string, serieFolder: string): int =
     var levenshteinDistance = editDistance(fileName, serieFolder)
     return levenshteinDistance
 
+#[
+    checks whether the fileName matches a folder, if it is a match it returns true
+    @param workingDirectory, the working directory
+    @returns fileName 
+]#
 proc doesSeriesFolderExist(workingDirectory:string ,fileName: string): bool = 
     if(dataToBeProecessed.contains(getSeriesNameFromFile(fileName))):
         return true
