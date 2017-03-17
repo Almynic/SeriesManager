@@ -26,10 +26,26 @@ suite "test for seriesManager":
             getSeriesNameFromFile("chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv") == "chicago justice"
     
     test "test episode pattern 1 06x21":
-        var pattern = re"\d\dx\d\d"
-        checkpoint("assert that pattern works")
+        let pattern = re"\d\dx\d\d"
+        checkpoint("assert that pattern 06x21 works")
         check("The.Wolverine.2013.1080p.Bluray.x264.YIFY.mp4".contains(pattern) == false)
-    
+        check("chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv".contains(pattern) == false)
+        check("".contains(pattern) == false)
+
+    test "test episode pattern 2 456":
+        let pattern2 = re"\d\d\d"
+        checkpoint("assert that pattern 456 works")
+        check("The.Wolverine.2013.1080p.Bluray.x264.YIFY.mp4".contains(pattern2) == true)
+        check("chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv".contains(pattern2) == true)
+        check("".contains(pattern2) == false)
+
+    test "test episode pattern 4 season 1 epsiode 1":
+        let pattern3 = re"[a-zA-Z]+[0-9][0-9][a-zA-Z]+[0-9]+"
+        check("The.Wolverine.2013.1080p.Bluray.x264.YIFY.mp4".contains(pattern3) == false)
+        check("chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv".contains(pattern3) == true)
+        check("DCs.Legends.of.Tomorrow.S01E01.HDTV.x264-LOL[ettv]".contains(pattern3) == true)
+        check("".contains(pattern3) == false)
+
     test "levensthein distance":
         checkpoint("test that string 'home' and 'goal' has distance 3")
         check: 
@@ -43,5 +59,7 @@ suite "test for seriesManager":
         checkpoint("test that equal strings have distance 0")
         check:
             levensthein("", "") != 1
+        check:
+            levensthein("", " ") == 1
     
 echo "finished"

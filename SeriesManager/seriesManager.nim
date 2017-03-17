@@ -8,11 +8,9 @@ let fileExtensions = [".avi",".mkv",".srt",".mp4"]
 let videoEncodingFormat = ["x264", "HDTV", "720p", "480p", "1080p", "Bluray", "YIFY"]
 var seriesNameFolders = [""]
 
-let episodePattern1 = re"[a-zA-Z][0-9][0-9][a-zA-Z][0-9][0-9]" # episode format s01e01
-let episodePattern2 = re"[a-zA-Z]+[0-9][0-9][a-zA-Z]+[0-9]+" #epsiode format season 1 epsiode 1
-let episodePattern3 = re"\d\d\d" #episode format 604
-let episodePattern4 = re"\d\dx\d\d" #episode format 60x13
-
+let episodePattern1 = re"[a-zA-Z]+[0-9][0-9][a-zA-Z]+[0-9]+" #epsiode format season 1 epsiode 1
+let episodePattern2 = re"\d\d\d" #episode format 604
+let episodePattern3 = re"\d\dx\d\d" #episode format 60x13
 let yearPattern = re"\d\d\d\d" #year format {2012 , 1993 and so on}
 
 # Declaring function so that order of implementation doesn't matter
@@ -105,8 +103,6 @@ proc isSeriesEpisode(fileName: string): bool =
     elif (fileName.contains(episodePattern2)):
         return true
     elif (fileName.contains(episodePattern3)):
-        return true
-    elif (fileName.contains(episodePattern4)):
         return true
     else:
         return false
