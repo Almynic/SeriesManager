@@ -140,9 +140,8 @@ proc isMovie(fileName: string): bool =
     else: 
         return false
 
-proc similarityCheckOnVariableLength(fileOrFolderName: string, 
-) =
-    
+proc similarityCheckOnVariableLength(fileOrFolderName: string) =
+    echo ""
 
 #[
     calculates the levensthein distance from fileName and serieFolder
