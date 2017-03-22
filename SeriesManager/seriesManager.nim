@@ -14,7 +14,8 @@ let episodePattern3 = re"\d\dx\d\d" #episode format 60x13
 let yearPattern = re"\d\d\d\d" #year format {2012 , 1993 and so on}
 
 # Declaring function so that order of implementation doesn't matter
-proc processDirectory(workingDirectory: string) {.tags: [ReadDirEffect, RootEffect].}
+proc fillDataToBeProcessed(workingDirectory: string) {.tags: [ReadDirEffect, RootEffect].}
+proc createSeriesFolder(dataToBeProecessed: seq[string])
 proc getSeriesNameFromFile(fileName: string): string
 proc move_data(fileOrDirectory : string, destDir : string) {.tags: [WriteIOEffect, ReadIOEffect].}
 proc movingFoldersToSeriesFolders(folderName : string, destFolder : string) {.tags: [ReadDirEffect, WriteDirEffect].}
@@ -23,9 +24,9 @@ proc stripFileEnding(fileName: string): string
 proc removeVideoEncodingInformationFromFileName(fileName: string): string
 proc isSeriesEpisode(fileName: string): bool
 proc isMovie(fileName: string): bool
-proc similarityCheckOnVariableLength(fileOrFolderName: string): bool
-proc levensthein(fileName: string, serieFolder: string): int
-proc stripEverythingfromFileName(fileName: string): string
+proc matchFileOrFolderNameToDestFolder(fileOrFolderName: string, destFolder: string): bool 
+proc levensthein(fileName: string, destFolder: string): int
+proc stripEverythingfromFileName(fileName : string, isSerie: bool): string 
 proc stripEverythingAfterEpisodePattern(fileName: string): string 
 #[ 
     removes dots in the fileName
@@ -44,9 +45,11 @@ proc removeDots(fileName: string): string =
     @return nothing
 ]#
 
-proc processDirectory(workingDirectory: string) =
+proc fillDataToBeProcessed(workingDirectory: string) =
     for kind, path in walkDir(workingDirectory):
         dataToBeProecessed.add(splitPath(path).tail)
+
+proc createSeriesFolder(dataToBeProecessed: seq[string]) =
     for data in dataToBeProecessed:
         var series_name = getSeriesNameFromFile(data)
 #[
@@ -63,7 +66,7 @@ proc move_data(fileOrDirectory : string, destDir : string) =
     @
 ]#
 proc getSeriesNameFromFile(fileName: string): string =
-    var fileNameStripEverything = stripEverythingAfterEpisodePattern(stripEverythingfromFileName(fileName))
+    var fileNameStripEverything = stripEverythingAfterEpisodePattern(stripEverythingfromFileName(fileName, true))
     return fileNameStripEverything
 
 #[
@@ -89,13 +92,21 @@ proc movingFoldersToSeriesFolders(folderName : string, destFolder : string) =
 proc movingFilesToSeriesFolders(fileName : string, destFolder : string) =
     echo ""
 
+
+#[
+    removes the year sequence from a fileName
+    @param fileName, the fileName
+    @returm fileName, the fileName without any year pattern.
+]#
 proc removeYearSequence(fileName : string): string =
     if(fileName.contains(yearPattern)):
         return replace(fileName, yearPattern, " ")
     return fileName
 
 #[
-
+    removes the video encoding information from the file name 
+    @param fileName, the file name from which the video encoding should be strip
+    @return fileNameWithoutEncoding, fileName without encoding information
 ]#
 proc removeVideoEncodingInformationFromFileName(fileName : string): string =
     var fileNameWithoutEncoding : string = fileName
@@ -125,13 +136,14 @@ proc isSeriesEpisode(fileName: string): bool =
     @param filename, the file name
     @returns strippedFileName, the serie or movie name without unnessary information
 ]#
-proc stripEverythingfromFileName(fileName : string): string =
+proc stripEverythingfromFileName(fileName : string, isSerie: bool): string =
     var strippedFileName : string = fileName
-    strippedFileName = removeYearSequence(strippedFileName)
-    strippedFileName = stripFileEnding(strippedFileName)
     strippedFileName = removeVideoEncodingInformationFromFileName(strippedFileName)
+    strippedFileName = stripFileEnding(strippedFileName)
     strippedFileName = removeDots(strippedFileName)
-    strippedFileName = stripEverythingAfterEpisodePattern(strippedFileName)
+    strippedFileName = removeYearSequence(strippedFileName)
+    if isSerie:
+        strippedFileName = stripEverythingAfterEpisodePattern(strippedFileName)
     var removedTrallingWhiteSpace = rsplit(strippedFileName, {' '}, maxSplit=1)
     strippedFileName = removedTrallingWhiteSpace[0]
     return strippedFileName
@@ -142,23 +154,36 @@ proc stripEverythingfromFileName(fileName : string): string =
     @returns true or false
 ]#
 proc isMovie(fileName: string): bool =
-    var movieTitle = stripEverythingfromFileName(fileName)
+    var movieTitle = stripEverythingfromFileName(fileName, false)
     if (not isSeriesEpisode(movieTitle)):
         return true
     else: 
         return false
-
-proc similarityCheckOnVariableLength(fileOrFolderName: string): bool =
-    echo ""
 
 #[
     calculates the levensthein distance from fileName and serieFolder
     @param fileName, the fileName 
     @param serieFolder, a serie folder
 ]#
-proc levensthein(fileName: string, serieFolder: string): int =
-    var levenshteinDistance = editDistance(fileName, serieFolder)
+proc levensthein(fileName: string, destFolder: string): int =
+    var levenshteinDistance = editDistance(fileName, destFolder)
     return levenshteinDistance
+
+#[
+    tries to match a file or folder name to a specific destination folder
+    @return false or true, if not match was found return false otherwise true
+    @param fileOrFolderName, the file or folder name which should be match to a specific folder 
+    @param destFolder, the folder which should be matched
+]#
+proc matchFileOrFolderNameToDestFolder(fileOrFolderName: string, destFolder: string): bool =
+    var fileOrFolderNameStriped = ""
+    if isSeriesEpisode(fileOrFolderName):
+        fileOrFolderNameStriped = stripEverythingfromFileName(fileOrFolderName, true)
+    else:
+        fileOrFolderNameStriped = stripEverythingfromFileName(fileOrFolderName, false)
+    let editDistance = levensthein(fileOrFolderNameStriped, destFolder)
+    if editDistance < 2: return true
+    else: return false
 
 #[
     checks whether the fileName matches a folder, if it is a match it returns true

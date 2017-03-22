@@ -61,5 +61,13 @@ suite "test for seriesManager":
             levensthein("", "") != 1
         check:
             levensthein("", " ") == 1
+
+    test "test matching of fileOrFolderName to corresponding destination folders":
+        checkpoint("chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv should be match folder chicago justice")
+        check:
+            matchFileOrFolderNameToDestFolder("chicago.justice.s01e04.HDTV.x265-SVA[Prime].mkv", "chicago justice") == true
+        checkpoint("The.Wolverine.2013.1080p.Bluray.x264.YIFY.mp4 should be match folder the wolverine")
+        check:
+            matchFileOrFolderNameToDestFolder("The.Wolverine.2013.1080p.Bluray.x264.YIFY.mp4", "The Wolverine    ") == true
     
 echo "finished"
